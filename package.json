@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "express": "~4.16.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongodb": "^3.1.4",
+    "mongoose": "^5.2.14"
+  }
+}
