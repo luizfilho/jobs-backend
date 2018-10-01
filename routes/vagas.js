@@ -6,12 +6,13 @@ const Vagas = db.Mongoose.model('vagas', db.VagaSchema, 'vagas');
 
 
 router.get('/vagas/:idUser', (req, res) => {
-    Vagas.find({ idUser: req.params.idUser }).lean().exec((e, docs) => {
+    const idUser = req.params.idUser
+    Vagas.find({ idUser }).lean().exec((e, docs) => {
         if (docs.length != 0) {
             res.json({ sucess: true, vagas: docs })
             res.end()
         } else {
-            console.log('não há vagas')
+            
             res.json({ sucess: false, msg: 'Não há Vagas publicadas' })
             res.end()
         }
