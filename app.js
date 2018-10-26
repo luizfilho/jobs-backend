@@ -17,7 +17,7 @@ app.use(cors)
 app.use('/api', usersRouter, vagasRouter);
 app.use('/api/auth',auth)
 
-const port = 3000
+const port = 3003
 app.listen(port, err => {
   console.log(`Api is run on ${port}`)
 })
