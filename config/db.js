@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : 'mongodb://localhost/mymoney'
+const url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : 'mongodb://localhost/advagas'
 mongoose.connect(url, { useNewUrlParser: true })
 
 const userSchema = new mongoose.Schema({
