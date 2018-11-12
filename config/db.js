@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/oabvagas', { useNewUrlParser: true })
+const url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : 'mongodb://localhost/mymoney'
 
 const userSchema = new mongoose.Schema({
     nome: { type: String, required: true },
@@ -10,8 +10,6 @@ const userSchema = new mongoose.Schema({
 },
     { collection: 'users' }
 )
-
-
 
 const vagaSchema = new mongoose.Schema({
     idUser: { type: String, required: true },
@@ -31,4 +29,4 @@ const vagaSchema = new mongoose.Schema({
     { collection: 'vagas' }
 )
 
-module.exports = { Mongoose: mongoose, UserSchema: userSchema, VagaSchema: vagaSchema }
+module.exports = { Mongoose: url, UserSchema: userSchema, VagaSchema: vagaSchema }
