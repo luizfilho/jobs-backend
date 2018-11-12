@@ -30,8 +30,11 @@ router.post('/newUser', (req, res) => {
       res.end();
       return;
     }
-    res.status(200).json({ sucess:true,msg: 'Usuario Cadastrado com Sucesso!' });
-    res.end()
+    else{
+      res.status(200).json({ sucess:true,msg: 'Usuario Cadastrado com Sucesso!' });
+      res.end()
+    }
+   
   })
 
 });

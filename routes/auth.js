@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const secret = require('../.env')
 
 const db = require('../config/db');
 
-const gerarToken = data => jwt.sign(data, secret, { expiresIn: '1m' })
-const abrirToken = token => jwt.decode(token, secret)
-const secret = 'secretoabvagas201820182018'
+const gerarToken = data => jwt.sign(data, secret.authSecret, { expiresIn: '1m' })
+const abrirToken = token => jwt.decode(token, secret.authSecret)
 
 const verifyToken = (req, res, next) => {
   const authorization = req.headers.authorization || '';
@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
           nome: result.nome
         }
 
-        const token = gerarToken(user, secret)
+        const token = gerarToken(user, secret.authSecret)
         res.status(200).json({
           sucess: true,
           token
@@ -64,6 +64,5 @@ router.get('/me', verifyToken ,async(req,res) =>{
   return res.json(req.user)
 })
 
-router.get('/')
 
 module.exports = router

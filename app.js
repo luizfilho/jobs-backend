@@ -7,7 +7,6 @@ const vagasRouter = require('./routes/vagas')
 const auth = require('./routes/auth')
 
 const cors = require('./config/cors')
-
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));

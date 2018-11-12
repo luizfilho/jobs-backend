@@ -12,7 +12,7 @@ router.get('/vagas/:idUser', (req, res) => {
             res.json({ sucess: true, vagas: docs })
             res.end()
         } else {
-            
+
             res.json({ sucess: false, msg: 'Não há Vagas publicadas' })
             res.end()
         }
@@ -53,18 +53,18 @@ router.get('/vaga/:estado/:cidade?/:areaAt?', (req, res) => {
                 res.json({ sucess: true, vagas: docs })
                 res.end()
             }
-           
+
         })
     } else if (cidade === "0") {
         Vagas.find({ estado, areaAt }).lean().exec((e, docs) => {
             if (docs.length === 0) {
                 res.json({ sucess: false, msg: "Não há vagas com esses parametros." })
                 res.end()
-            }else{
+            } else {
                 res.json({ sucess: true, vagas: docs })
                 res.end()
             }
-            
+
         })
     } else if (areaAt === "0") {
         Vagas.find({ estado, cidade }).lean().exec((e, docs) => {
@@ -73,22 +73,22 @@ router.get('/vaga/:estado/:cidade?/:areaAt?', (req, res) => {
                 res.json({ sucess: false, msg: "Não há vagas com esses parametros." })
                 res.end()
             }
-            else{
+            else {
                 res.json({ sucess: true, vagas: docs })
                 res.end()
             }
-            
+
         })
     } else {
         Vagas.find({ estado, cidade, areaAt }).lean().exec((e, docs) => {
             if (docs.length === 0) {
                 res.json({ sucess: false, msg: "Não há vagas com esses parametros." })
                 res.end()
-            }else{
+            } else {
                 res.json({ sucess: true, vagas: docs })
                 res.end()
             }
-            
+
         })
     }
 
@@ -115,12 +115,13 @@ router.post('/newVaga', (req, res) => {
 
     newVaga.save(err => {
         if (err) {
-            res.status(500).json({ error: err.message })
+            res.status(500)
             res.end();
-            return;
+        } else {
+            res.status(200)
+            res.end()
         }
-        res.status(200)
-        res.end()
+
     })
 })
 
@@ -130,9 +131,11 @@ router.delete('/deletevaga/:id', (req, res) => {
             res.status(500).json({ "error": "Erro ao excluir a Vaga" })
             res.end()
             return
+        } else {
+            res.send('Vaga excluida')
+            res.end()
         }
-        res.send('Vaga excluida')
-        res.end()
+
 
     })
 })
