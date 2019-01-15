@@ -14,6 +14,7 @@ module.exports = server => {
     
     //Ares Livres sem Verificação
     const AuthService = require('../api/auth/authService');
+    openApi.get('/users',AuthService.getUsers)
     openApi.post('/login', AuthService.login);
     openApi.post('/signup', AuthService.signup);
     openApi.post('/validateToken', AuthService.validateToken);
@@ -22,6 +23,6 @@ module.exports = server => {
     openApi.post('/vaga', Vagas.getVaga);
     openApi.get('/vagas', Vagas.getVagas);
     openApi.get('/vaga/:id', Vagas.getVagasbyId);
+    
     server.use('/oapi', openApi);
-
 }

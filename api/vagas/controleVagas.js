@@ -8,12 +8,12 @@ const newVaga = ('/newVaga', (req, res) => {
 
     const { nomeCont, areaAt, estado,
         cidade, remu, viagem, numCont,
-        emailCont,  tipoVaga, } = req.body;
+        emailCont,  tipoVaga, idUser } = req.body;
 
     const newVaga = new Vagas({
         nomeCont, areaAt, tipoVaga,
         estado, cidade, remu, viagem,
-        numCont, emailCont, 
+        numCont, emailCont,idUser 
     })
 
     newVaga.save(err => {

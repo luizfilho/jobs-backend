@@ -5,7 +5,7 @@ mongoose.connect(env.URL, { useNewUrlParser: true })
 
 const userSchema = new mongoose.Schema({
     nome: { type: String, required: true },
-    typeUser: { type: String, required: true },
+    typeUser: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
 },

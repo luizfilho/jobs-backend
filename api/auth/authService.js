@@ -8,6 +8,13 @@ const User = db.Mongoose.model('users', db.UserSchema, 'users');
 const emailRegex = /\S+@\S+\.\S+/ //string antes do @ , string antes do . 
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
 
+const getUsers = (req,res) =>{
+  User.find({}, (err,data) =>{
+    if(err) res.send(err)
+    else res.send(data)
+  })
+}
+
 //Login
 const login = (req, res) => {
   const email = req.body.email || '';
@@ -18,8 +25,8 @@ const login = (req, res) => {
       const token = jwt.sign({ ...user }, env.authSecret, {
         expiresIn: "1 day"
       })
-      const { nome, email, typeUser } = user
-      res.json({ nome, email, typeUser, token })
+      const { nome, email, _id} = user
+      res.status(200).json({ nome, email, _id, token })
     } else {
       return res.status(400).send({ errors: ['Usuário/Senha inválidos'] })
     }
@@ -34,6 +41,7 @@ const validateToken = (req, res, next) => {
 }
 
 const signup = (req, res, next) => {
+  
   const nome = req.body.nome || ''
   const email = req.body.email || ''
   // const typeUser = req.body.typeUser || ''
@@ -57,16 +65,15 @@ const signup = (req, res, next) => {
   }
   User.findOne({ email }, (err, user) => {
     if (err) {
-      res.status(400).end()
+      res.status(400).json({error:err, msg:123}).end()
     } else if (user) {
       return res.status(400).send({ errors: ['Usuário já cadastrado.'] })
     } else {
       const newUser = new User({ nome, email, password: passwordHash })//typeUser
       newUser.save(err => {
         if (err) {
-          res.json({ err: err }).status(400).end()
+          res.json({ err: err, msg:':(' }).status(400).end()
         } else {
-          res.send('nois')
           login(req, res, next)
         }
       })
@@ -75,4 +82,4 @@ const signup = (req, res, next) => {
 }
 
 
-module.exports = { login, signup, validateToken };
+module.exports = { login, signup,getUsers, validateToken };
